@@ -14,7 +14,7 @@ namespace XmlToDynamic.Tests
         {
             // Arrange
             var xml = XElement.Parse(@"<?xml version=""1.0"" encoding=""UTF-8""?>
-<testcontainer>
+<testcontainer xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns=""http://www.docusign.net/API/3.0"">
     <testchild1>one</testchild1>
     <testchild2>two</testchild2>
 </testcontainer>");
@@ -73,10 +73,10 @@ namespace XmlToDynamic.Tests
             // Assert
             Assert.IsNotNull(result);
             
-            Assert.IsNotNull(result.children);
-            Assert.AreEqual(2, result.children.Count);
-            Assert.AreEqual("A", result.children[0].Value);
-            Assert.AreEqual("B", result.children[1].Value);
+            Assert.IsNotNull(result.child);
+            Assert.AreEqual(2, result.child.Count);
+            Assert.AreEqual("A", result.child[0].Value);
+            Assert.AreEqual("B", result.child[1].Value);
         }
 
         [TestMethod]
@@ -95,12 +95,21 @@ namespace XmlToDynamic.Tests
             // Assert
             Assert.IsNotNull(result);
 
-            Assert.IsNotNull(result.children);
-            Assert.AreEqual(2, result.children.Count);
-            Assert.AreEqual("Jon", result.children[0].name.Value);
-            Assert.AreEqual("13", result.children[0].age.Value);
-            Assert.AreEqual("Esther", result.children[1].name.Value);
-            Assert.AreEqual("18", result.children[1].age.Value);
+            //pluralize test
+            //Assert.IsNotNull(result.children);
+            //Assert.AreEqual(2, result.children.Count);
+            //Assert.AreEqual("Jon", result.children[0].name.Value);
+            //Assert.AreEqual("13", result.children[0].age.Value);
+            //Assert.AreEqual("Esther", result.children[1].name.Value);
+            //Assert.AreEqual("18", result.children[1].age.Value);
+
+            //no longer pluralizing
+            Assert.IsNotNull(result.child);
+            Assert.AreEqual(2, result.child.Count);
+            Assert.AreEqual("Jon", result.child[0].name.Value);
+            Assert.AreEqual("13", result.child[0].age.Value);
+            Assert.AreEqual("Esther", result.child[1].name.Value);
+            Assert.AreEqual("18", result.child[1].age.Value);
         }
 
         [TestMethod]
