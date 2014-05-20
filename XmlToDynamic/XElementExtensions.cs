@@ -5,20 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using System.Data.Entity.Design.PluralizationServices;
 using System.Globalization;
 
 namespace XmlToDynamic
 {
     public static class XElementExtensions
     {
-        private static PluralizationService pluralizationService;
-
-        static XElementExtensions()
-        {
-            pluralizationService = PluralizationService.CreateService(CultureInfo.CurrentCulture);
-        }
-
         public static dynamic ToDynamic(this XElement element)
         {
             var item = new DynamicElement();
@@ -36,7 +28,7 @@ namespace XmlToDynamic
                         list.Add(ToDynamic(repeatedElement));
                     
                     item.SubElements
-                        .Add(pluralizationService.Pluralize(repeatedElementGroup.Key), list);
+                        .Add(repeatedElementGroup.Key, list);
                 }
 
                 foreach (var uniqueElement in uniqueElements.OrderBy(el => el.Name.LocalName))
